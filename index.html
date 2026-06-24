@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pravin Raj G — Portfolio</title>
+    <meta name="description" content="Portfolio of Pravin Raj G — Full‑stack & web development projects, skills, and contact." />
+    <style>
+         :root {
+            --bg: #0a1224;
+            /* deep night blue */
+            --bg-2: #0d1a33;
+            /* slightly lighter */
+            --card: #0f1f3d;
+            /* card surface */
+            --text: #eaf2ff;
+            /* near white */
+            --muted: #9fb3d1;
+            /* muted text */
+            --accent: #67e8f9;
+            /* cyan accent */
+            --accent-2: #a78bfa;
+            /* purple accent */
+            --ring: rgba(103, 232, 249, .3);
+            --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+            --radius: 16px;
+        }
+        /* Reset & base */
+        
+        * {
+            box-sizing: border-box
+        }
+        
+        html {
+            scroll-behavior: smooth
+        }
+        
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            color: var(--text);
+            background: radial-gradient(1200px 600px at 10% -10%, #13203f 0%, transparent 60%), radial-gradient(1000px 500px at 100% 0%, #15254a 0%, transparent 50%), linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+            min-height: 100dvh;
+        }
+        
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+        
+        img {
+            max-width: 100%;
+            display: block
+        }
+        /* Starry background */
+        
+        .stars,
+        .stars::before,
+        .stars::after {
+            position: fixed;
+            inset: 0;
+            content: "";
+            z-index: -1;
+            background-repeat: repeat;
+            animation: twinkle 8s linear infinite;
+        }
+        
+        .stars {
+            background-image: radial-gradient(1px 1px at 20px 30px, #fff8 40%, transparent 41%), radial-gradient(1px 1px at 80px 120px, #fff6 40%, transparent 41%), radial-gradient(1px 1px at 200px 50px, #fff7 40%, transparent 41%), radial-gradient(1px 1px at 320px 200px, #fff5 40%, transparent 41%);
+            background-size: 400px 400px;
+            filter: drop-shadow(0 0 2px #fff4);
+        }
+        
+        .stars::before {
+            background-image: radial-gradient(1px 1px at 60px 90px, #fff5 40%, transparent 41%), radial-gradient(1px 1px at 140px 220px, #fff7 40%, transparent 41%), radial-gradient(1px 1px at 260px 160px, #fff6 40%, transparent 41%), radial-gradient(1px 1px at 380px 40px, #fff8 40%, transparent 41%);
+            background-size: 400px 400px;
+            animation-duration: 12s;
+            opacity: .9;
+            transform: translateZ(0);
+        }
+        
+        .stars::after {
+            background-image: radial-gradient(2px 2px at 100px 40px, #fff7 40%, transparent 41%), radial-gradient(2px 2px at 240px 300px, #fff6 40%, transparent 41%), radial-gradient(2px 2px at 340px 180px, #fff8 40%, transparent 41%);
+            background-size: 600px 600px;
+            animation-duration: 18s;
+            opacity: .7;
+        }
+        
+        @keyframes twinkle {
+            0%,
+            100% {
+                opacity: .9
+            }
+            50% {
+                opacity: .6
+            }
+        }
+        /* Layout helpers */
+        
+        .container {
+            width: min(1120px, 92vw);
+            margin-inline: auto;
+        }
+        
+        .grid {
+            display: grid;
+            gap: 24px
+        }
+        /* Navbar */
+        
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(10px);
+            background: linear-gradient(180deg, rgba(10, 18, 36, .8), rgba(10, 18, 36, .4));
+            border-bottom: 1px solid #ffffff12;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .25);
+        }
+        
+        .nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 0;
+        }
+        
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            letter-spacing: .3px;
+        }
+        
+        .brand .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 30% 30%, var(--accent), var(--accent-2));
+            box-shadow: 0 0 20px var(--accent);
+        }
+        
+        .links {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        
+        .links a {
+            padding: 8px 12px;
+            border-radius: 999px;
+            color: var(--muted);
+            font-weight: 600;
+            font-size: .95rem;
+            border: 1px solid transparent
+        }
+        
+        .links a:hover {
+            color: var(--text);
+            border-color: #ffffff22;
+            background: #ffffff08
+        }
+        
+        .menu-btn {
+            display: none;
+        }
+        /* Hero: Welcome + About side-by-side */
+        
+        #home {
+            padding: clamp(64px, 10vh, 120px) 0 56px;
+            position: relative;
+        }
+        
+        .hero {
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+            align-items: center
+        }
+        
+        .hero-left {
+            grid-column: span 6;
+        }
+        
+        .hero-right {
+            grid-column: span 6;
+        }
+        
+        .kicker {
+            text-transform: uppercase;
+            letter-spacing: .2em;
+            color: var(--muted);
+            font-weight: 700;
+            font-size: .9rem
+        }
+        
+        h1 {
+            margin: 10px 0 12px;
+            font-size: clamp(28px, 5vw, 56px);
+            line-height: 1.05;
+        }
+        
+        .lead {
+            font-size: clamp(15px, 2.2vw, 18px);
+            color: var(--muted);
+            max-width: 60ch
+        }
+        
+        .cta {
+            display: flex;
+            gap: 12px;
+            margin-top: 22px
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-weight: 700;
+            border: 1px solid #ffffff1a;
+            background: #ffffff0a;
+            color: var(--text);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn.primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: #041021;
+            border: none
+        }
+        
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+        /* Cards & chips */
+        
+        .card {
+            background: linear-gradient(180deg, #0f1e3a, #0d1a33);
+            border: 1px solid #ffffff14;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 18px
+        }
+        .score-badge{
+    display:inline-block;
+    margin-top:10px;
+    padding:8px 14px;
+    border-radius:20px;
+    background:linear-gradient(135deg,var(--accent),var(--accent-2));
+    color:#041021;
+    font-weight:700;
+}
+        
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border: 1px solid #ffffff22;
+            border-radius: 999px;
+            color: var(--muted);
+            font-weight: 600;
+            margin: 6px 6px 0 0;
+            background: #ffffff08
+        }
+        /* Sections */
+        
+        section {
+            padding: 64px 0
+        }
+        
+        .section-title {
+            font-size: clamp(22px, 3vw, 32px);
+            margin: 0 0 8px;
+        }
+        
+        .section-sub {
+            color: var(--muted);
+            margin: 0 0 22px;
+        }
+        /* Projects grid */
+        
+        .projects {
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        }
+        
+        .project h3 {
+            margin: 0 0 6px
+        }
+        
+        .project p {
+            color: var(--muted);
+            margin: .35rem 0 0
+        }
+        /* Education timeline */
+        
+        .timeline {
+            position: relative;
+            padding-left: 22px
+        }
+        
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 6px;
+            top: 8px;
+            bottom: 8px;
+            width: 2px;
+            background: #ffffff22
+        }
+        
+        .edu {
+            position: relative;
+            margin: 0 0 16px;
+            padding: 14px 16px 14px 16px;
+            border-left: 3px solid transparent;
+        }
+        
+        .edu::before {
+            content: "";
+            position: absolute;
+            left: -2px;
+            top: 18px;
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 30% 30%, var(--accent), var(--accent-2));
+            box-shadow: 0 0 12px var(--accent)
+        }
+        
+        .edu strong {
+            display: block;
+            font-size: 1.05rem;
+            margin-bottom: 4px
+        }
+        
+        .edu .meta {
+            color: var(--muted);
+            font-size: .95rem
+        }
+        /* Contact */
+        
+        .contact-grid {
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        }
+        
+        .contact-card {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start
+        }
+        
+        .icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            background: #ffffff10;
+            display: grid;
+            place-items: center;
+            border: 1px solid #ffffff1c
+        }
+        /* Footer */
+        
+        footer {
+            padding: 28px 0 48px;
+            color: var(--muted);
+            text-align: center;
+            border-top: 1px solid #ffffff14
+        }
+        /* Responsive */
+        
+        @media (max-width: 900px) {
+            .links {
+                display: none
+            }
+            .menu-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 10px 12px;
+                border-radius: 12px;
+                border: 1px solid #ffffff22;
+                background: #ffffff08;
+                color: var(--text)
+            }
+            .hero-left,
+            .hero-right {
+                grid-column: 1 / -1
+            }
+            .lead {
+                max-width: 65ch
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="stars" aria-hidden="true"></div>
+
+    <!-- NAVBAR -->
+    <nav class="nav">
+        <div class="container">
+            <a class="brand" href="#home" aria-label="Home">
+                <span class="dot"></span>
+                <span>Pravin&nbsp;Raj&nbsp;G</span>
+            </a>
+            <div class="links" role="navigation" aria-label="Primary">
+                <a href="#home">Home</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#education">Education</a>
+                <a href="#certifications">Certifications</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu">Menu ▾</button>
+        </div>
+ 
+    </nav>
+
+    <!-- HERO: Welcome + About side-by-side -->
+    <section id="home">
+        <div class="container grid hero">
+            <header class="hero-left">
+                <div class="kicker">Welcome to my portfolio</div>
+                <h1>Hi, I'm Pravin&nbsp;Raj&nbsp;G<span style="opacity:.6"> — Full‑Stack & Web Developer</span></h1>
+                <p class="lead">Computer Science student with a strong foundation in programming and software development. Skilled in building efficient and user-friendly applications. Passionate about solving real-world problems through technology. Adaptable to dynamic environments and enjoys collaborating in team-based projects..</p>
+                
+            </header>
+           <aside class="hero-right" style="display:flex;justify-content:flex-end;align-items:center;">
+    <img src="images/pravinraj.jpeg"
+         alt="Pravin Raj G"
+         style="
+         width:360px;
+         height:360px;
+         object-fit:cover;
+         border-radius:50%;
+         border:5px solid #67e8f9;
+         box-shadow:
+         0 0 20px #67e8f9,
+         0 0 40px rgba(103,232,249,.5),
+         0 0 60px rgba(103,232,249,.3);
+         margin-right:-40px;">
+</aside>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <!-- SKILLS -->
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <h2 class="section-title">Skills</h2>
+    <p class="section-sub">Technical skills with proficiency levels.</p>
+
+    <div class="skill">
+      <div class="skill-info">
+        <span>Java</span>
+        <span class="percent">75%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress" data-progress="75"></div>
+      </div>
+    </div>
+
+    <div class="skill">
+      <div class="skill-info">
+        <span>Python</span>
+        <span class="percent">40%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress" data-progress="40"></div>
+      </div>
+    </div>
+
+    <div class="skill">
+      <div class="skill-info">
+        <span>HTML / CSS</span>
+        <span class="percent">80%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress" data-progress="80"></div>
+      </div>
+    </div>
+
+    <div class="skill">
+      <div class="skill-info">
+        <span>JavaScript</span>
+        <span class="percent">30%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress" data-progress="30"></div>
+      </div>
+    </div>
+
+    <div class="skill">
+      <div class="skill-info">
+        <span>MySQL</span>
+        <span class="percent">70%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress" data-progress="70"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CSS -->
+<style>
+  .skill {
+    margin-bottom: 20px;
+  }
+
+  .skill-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .progress-bar {
+    background: #e0e0e0;
+    border-radius: 20px;
+    overflow: hidden;
+    height: 12px;
+  }
+
+  .progress {
+    height: 100%;
+    width: 0; /* starts empty */
+    background: linear-gradient(90deg, #007bff, #00c6ff);
+    border-radius: 20px;
+    transition: width 2s ease; /* animation */
+  }
+</style>
+
+<!-- JavaScript -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".progress").forEach(bar => {
+      const value = bar.getAttribute("data-progress");
+      bar.style.width = value + "%";
+    });
+  });
+</script>
+
+    <!-- PROJECTS -->
+    <!-- PROJECTS -->
+<section id="projects">
+    <div class="container">
+        <h2 class="section-title">Projects</h2>
+        <p class="section-sub">A few things I've built recently.</p>
+        <div class="grid projects">
+            <article class="card project">
+                <h3>URL Shortener — Python Tkinter</h3>
+                <p>Desktop GUI app using <strong>Tkinter</strong> and <strong>pyshorteners</strong> to shorten URLs with input validation, copy-to-clipboard, and error handling. Designed a clean, user-friendly interface for seamless usage.</p>
+                <p style="margin-top:8px">
+                    <a href="https://github.com/PRAVIN-RAJ-G/Projects" 
+                       class="btn" target="_blank" rel="noopener">View Code ↗</a>
+                </p>
+            </article>
+            <article class="card project">
+                <h3>Billing Management System — Java AWT + MySQL</h3>
+                <p>Built a billing system with product management, customer records, billing & invoice generation. Structured MySQL tables ensure accurate transactions and smooth operations.</p>
+                <p style="margin-top:8px">
+                    <a href="https://github.com/PRAVIN-RAJ-G/SUPER_BILLING" 
+                       class="btn" target="_blank" rel="noopener">View Code ↗</a>
+                </p>
+            </article>
+            <article class="card project">
+                <h3>Medication Reminder System</h3>
+                <p>Python + MongoDB app for patient logins, doctor selection, medication tracking, and timely dosage alerts. Flexible data storage and scheduling for reminders.</p>
+                <p style="margin-top:8px">
+                    <a href="https://github.com/PRAVIN-RAJ-G/MEDICATION-REMAINDER-SYSTEM" 
+                       class="btn" target="_blank" rel="noopener">View Code ↗</a>
+                </p>
+            </article>
+        </div>
+    </div>
+</section>
+
+
+    <!-- EDUCATION -->
+    <section id="education">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
+            <div class="card timeline">
+                <div class="edu">
+                    <strong>B.E./B.Tech — Bachelors of Computer Science</strong>
+                    <div class="meta">M. Kumaraswamy College of Engineering, Karur · CGPA: 7.8*/10 · — Present</div>
+                </div>
+                <div class="edu">
+                    <strong>Grade 12 (Matric)</strong>
+                    <div class="meta">Achyuta Academy, Tamil Nadu · 80.1% · 2022 — 2023</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certifications">
+    <div class="container">
+        <h2 class="section-title">Certifications</h2>
+<div class="grid" style="gap:12px">
+
+    <div class="card">
+    <strong>🏆 Power BI Workshop</strong>
+    <div class="section-sub" style="margin:10px 0 0">
+        Successfully participated in the Power BI Workshop and gained practical knowledge in data visualization and business intelligence tools during Aug 2024.
+    </div>
+</div>
+
+<div class="card">
+    <strong>📊 Introduction to Microsoft Excel</strong>
+    <div class="section-sub" style="margin:10px 0 0">
+        Completed the Introduction to Microsoft Excel program and developed foundational skills in spreadsheet management and data analysis during Nov 2024.
+    </div>
+</div>
+
+<div class="card">
+    <strong>🌐 Introduction to Industry 4.0 and Industrial Internet of Things (IIoT) – NPTEL</strong>
+    <div class="section-sub" style="margin:10px 0 0">
+        Earned Elite Certification from NPTEL by successfully completing the course during Jul–Oct 2025 with a score of 85%.
+    </div>
+</div>
+
+<div class="card">
+    <strong>🤖 Responsible & Safe AI Systems – NPTEL</strong>
+    <div class="section-sub" style="margin:10px 0 0">
+        Earned Elite Certification from NPTEL by successfully completing the course during Jul–Oct 2025 with a score of 64%.
+    </div>
+</div>
+
+<div class="card">
+    <strong>🖥️ Human Computer Interaction (In English) – NPTEL</strong>
+    <div class="section-sub" style="margin:10px 0 0">
+        Earned Elite Certification from NPTEL by successfully completing the course during Jan–Apr 2026 with a score of 95%.
+    </div>
+</div>
+
+</div>
+        
+        
+    </div>
+</section>
+
+    <!-- ACTIVITIES -->
+    <section id="activities">
+    <div class="container">
+        <h2 class="section-title">Co & Extra-Curricular Activities</h2>
+
+```
+    <div class="grid" style="gap:12px">
+
+    <div class="card">
+    <strong>🎯 Technical Workshops</strong>
+    <div class="section-sub" style="margin:10px 0 0">
+        Participated in technical workshops to enhance practical knowledge and strengthen technical skills across various domains.
+    </div>
+</div>
+
+<div class="card">
+    <strong>📄 Paper Presentations</strong>
+    <div class="section-sub" style="margin:10px 0 0">
+        Presented technical papers at academic events, improving communication, presentation, and research skills.
+    </div>
+</div>
+
+<div class="card">
+    <strong>💡 Hackathon Participation</strong>
+    <div class="section-sub" style="margin:10px 0 0">
+        Participated in the Hackathon conducted during Rathinam Grand Fest (RGF) at Rathinam Group of Institutions, Coimbatore, focusing on innovative problem-solving and teamwork.
+    </div>
+</div>
+
+<div class="card">
+    <strong>🏅 Sports & Fitness</strong>
+    <div class="section-sub" style="margin:10px 0 0">
+        Actively involved in fitness activities and participated in Kabaddi, promoting teamwork, discipline, and physical well-being.
+    </div>
+</div>
+
+</div>
+</div>
+```
+
+</section>
+
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact</h2>
+            <p class="section-sub">Let's build something together.</p>
+            <div class="grid contact-grid">
+                <div class="card contact-card">
+                    <div class="icon">📧</div>
+                    <div>
+                        <strong>Email</strong>
+                        <div><a href="mailto:pravinraj.ganes@gmail.com">pravinraj.ganes@gmail.com</a></div>
+                    </div>
+                </div>
+                <div class="card contact-card">
+                    <div class="icon">📱</div>
+                    <div>
+                        <strong>Phone</strong>
+                        <div><a href="tel:+917904786437">+91 7904786437</a></div>
+                    </div>
+                </div>
+                <div class="card contact-card">
+                    <div class="icon">💼</div>
+                    <div>
+                        <strong>LinkedIn</strong>
+                        <div><a target="_blank" rel="noopener" href="https://www.linkedin.com/in/pravin-raj-g-b445201a9/">linkedin.com/in/pravin-raj-g-b445201a9</a></div>
+                    </div>
+                </div>
+                <div class="card contact-card">
+                    <div class="icon">🧑‍💻</div>
+                    <div>
+                        <strong>GitHub</strong>
+                        <div><a target="_blank" rel="noopener" href="https://github.com/PRAVIN-RAJ-G/PRAVIN-RAJ-G">github.com/PRAVIN-RAJ-G</a></div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top:18px; display:flex; gap:12px; flex-wrap:wrap">
+                <a class="btn" href="#home">Back to top ↑</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            © <span id="year"></span> Pravin Raj G. 
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const btn = document.getElementById('menuBtn');
+        const menu = document.getElementById('mobileMenu');
+        btn ? .addEventListener('click', () => {
+            const expanded = btn.getAttribute('aria-expanded') === 'true';
+            btn.setAttribute('aria-expanded', String(!expanded));
+            menu.hidden = expanded;
+        });
+
+        function closeMenu() {
+            btn.setAttribute('aria-expanded', 'false');
+            menu.hidden = true
+        }
+
+        // Dynamic year
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>
